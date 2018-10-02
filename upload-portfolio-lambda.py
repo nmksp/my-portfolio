@@ -29,9 +29,9 @@ def lambda_handler(event, context):
                     ExtraArgs={'ContentType': mimetypes.guess_type(nm)[0]})
                 portfolio_bucket.Object(nm).Acl().put(ACL='public-read')
 
-        print "Job done!"
-        topic.publish(Subject = "Portfolio Deployed", Message = "Portfolio has been deployed successfully.")
+        print "Job done! Artifacts created."
+        topic.publish(Subject = "Portfolio Deployed", Message = "Artifact was created by the CodeBuild successfully.")
     except:
-        topic.publish(Subject = "Portfolio Deploy Failed", Message = "Portfolio was not deployed. Check what went wrong.")
+        topic.publish(Subject = "Portfolio Deploy Failed", Message = "Artifact was not created by the CodeBuild. Check what went wrong.")
         raise
     return "Hello from lambda."
